@@ -1,6 +1,6 @@
 /*
 DEBER 6.1
-RETO 4
+RETO 3
 NOMBRE: Jorge Villarreal
 */
 int x=0;
