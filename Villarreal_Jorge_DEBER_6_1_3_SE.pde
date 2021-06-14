@@ -3,53 +3,56 @@ DEBER 6.1
 RETO 3
 NOMBRE: Jorge Villarreal
 */
-int x=0;
-int y=0;
-int i=0;
+
+import processing.serial.*;
+Serial port;
+String val="";
+float value;
+
 
 void setup(){
-  size(900,600);  // (ancho, alto)   (displayWidth,displayHeight)  P3D: Tercera dimensión
-  background(#D6D6D6);  // color de fondo RGB
-} 
-
-void draw(){
-  if(i<1){
-    //background(#D6D6D6);  // color de fondo RGB
-    textSize(25);
-    fill(250,0,0);
-
-    stroke(0,255,0);
-    fill(#E31700);
-    ellipse(450,300,300,300);
-    fill(1);
-    text("EL PUSH BUTTON ESTÁ PRESIONADO",250,100);
-  }
-} 
-
-void mousePressed() {
-  if(mouseButton==LEFT){
-    stroke(0,255,0);
-    fill(#1C7601);
-    ellipse(450,300,300,300);
-    i=1;
-  }
-  if(mouseButton==RIGHT){
-    stroke(0,255,0);
-    fill(#864504);
-    ellipse(450,300,300,300);
-    i=1;
-  }
+  size(500, 500);
+background(#a3a3a3);
+port = new Serial(this,"COM3",9600);
 }
 
-void mouseReleased() {
-  if(mouseButton==LEFT){
-    i=0;
-  }
-  if(mouseButton==RIGHT){
-    stroke(0,250,0);
-    fill(#34E300);
-    ellipse(450,300,300,300);
-    fill(1);
-    text("EL PUSH BUTTON NO ESTÁ PRESIONADO",250,100);
-  } 
+
+void draw(){
+if (port.available() > 0){
+val=port.readStringUntil('\n');
+if(val==null){
+return;
+}
+value=float(val);
+}
+if (value==1){
+background(#a3a3a3);
+textAlign(CENTER);
+textSize(30);
+fill(0);
+text("El boton no esta",250,45);
+textSize(30);
+text("presionado",250,80);
+textSize(30);
+fill(0);
+text("Jorge Villarreal",250,450);
+fill(#00ff00);
+stroke(#00ff00);
+ellipse(250,250,200,200);
+}
+if(value==2){
+background(#a3a3a3);
+textAlign(CENTER);
+textSize(30);
+fill(0);
+text("El boton no esta",250,45);
+textSize(30);
+text("presionado",250,80);
+textSize(30);
+fill(0);
+text("Jorge Villarreal",250,450);
+fill(#cc0000);
+stroke(#cc0000);
+ellipse(250,250,200,200);
+}
 }
